@@ -1,4 +1,6 @@
 c=[1,10,20,3,2,5,6,43,336,7,2,5,34,67]
+c2=[1,10,20,3,2,5,6,43,336,7,2,5,34,67]
+
 
 # def insertion_sort(c,n):
 #     for j in range(1,n):
@@ -15,33 +17,33 @@ c=[1,10,20,3,2,5,6,43,336,7,2,5,34,67]
 
 # ######## insertion sort com binary search #########
     
-def insertion_sort_binario(c,n):
-    for j in range(1,n):
-        chave = c[j]
-        i =  binary_search(c,chave,0,j)+1
-        for z in range(j,i,-1):
-            c[z]=c[z-1]
-        c[i]=chave
-    return c
+# def insertion_sort_binario(c,n):
+#     for j in range(1,n):
+#         chave = c[j]
+#         i =  binary_search(c,chave,0,j)+1
+#         for z in range(j,i,-1):
+#             c[z]=c[z-1]
+#         c[i]=chave
+#     return c
 
-def  binary_search(c,chave,inicio,fim):
+# def  binary_search(c,chave,inicio,fim):
      
-    if fim - inicio <=1:
-        if chave < c[inicio]:
-            return inicio - 1
-        else:
-            return inicio
+#     if fim - inicio <=1:
+#         if chave < c[inicio]:
+#             return inicio - 1
+#         else:
+#             return inicio
     
-    meio = (inicio+fim)//2
-    if c[meio]<chave:
-        return binary_search(c,chave,meio,fim)
-    if c[meio]>chave:
-        return binary_search(c,chave,inicio,meio)
-    else: 
-        return meio
+#     meio = (inicio+fim)//2
+#     if c[meio]<chave:
+#         return binary_search(c,chave,meio,fim)
+#     if c[meio]>chave:
+#         return binary_search(c,chave,inicio,meio)
+#     else: 
+#         return meio
 
-c_ordenado=insertion_sort_binario(c,len(c))
-print(c_ordenado,"insertion sort com binary")
+# c_ordenado=insertion_sort_binario(c,len(c))
+# print(c_ordenado,"insertion sort com binary")
 
 ###########shell sort##############
 
@@ -77,11 +79,9 @@ print(c)
 
 
 def insdiretashell(c,s,f,h):
-    j = f+h
-    while j < s:
+    for j in range(f+h,s,h):
         chave=c[j]
         i=j-h
-        j=j+h
         while i>0 and c[i]>chave:
             c[i+h]=c[i]
             i=i-h
@@ -89,14 +89,9 @@ def insdiretashell(c,s,f,h):
 
 
 def shell_sort(c,np,n):
-    p = np
-    while  p >= 1 :
+    for p in range(np,0,-1): ## maior igual a 1 menor valor
         h = 2**(p-1)
-        p=p-1
-        j=1
-        while j <= h:
+        for j in range (1,h+1):
             insdiretashell(c,n,j,h)
-            j=j+1
-
-shell_sort(c,8,len(c))
-print(c)
+shell_sort(c2,16,len(c2))
+print(c2)
