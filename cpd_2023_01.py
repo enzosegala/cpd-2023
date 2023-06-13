@@ -1,6 +1,18 @@
 
-###########shell sort##############
+###########shell sort#############
 
+file = open('entrada1.txt', 'r')
+data = file.read()
+clean_data=data.replace(' ', ',')
+file.close()
+array=[]
+with open('entrada1.txt', 'r') as f:
+    for line in f.readlines():
+        array.append(line)
+    
+print(array[1])
+
+# ['0', '0', '200', '0', '53', '1', '0', '255', '1.5', '2.5', '3.5', '4.5', '5.5', '0.1', '0.2', '0.3', '0.4', '0.5']
 c=[16, 14, 12, 1, 8 ,4, 9 ,6, 15, 13, 11, 2, 7, 3, 10, 5]
 
 shell=[1,2,4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384,32768,65536,131072,262144,524288,1048576]
@@ -19,7 +31,7 @@ def insdiretashell(c,s,f,h):
 
 
 def shell_sort(c,n,vec):
-    p=0
+    p=1
     while vec[p] < len(c):
         p=p+1
     while  p >= 0 :
