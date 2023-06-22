@@ -1,4 +1,6 @@
 import numpy as np
+import time
+########################## leitura ##########################
 array=[]
 with open('entrada-quicksort.txt', 'r') as f:
     for line in f.readlines():
@@ -18,40 +20,65 @@ for x in array:
     array_novo.append(array_temp)
     
     array_temp=[]
-#################################
+################################# funções ##############
 def swap(i,j):
     # temp = i
     # i = j
     # j= temp 
     (i, j) = (j,i)
 
+def funcao_mediana(ini,meio,fim):
+    if ini<meio:
+        if meio<fim:
+            return meio
+        else:
+            if ini<fim:
+                return fim
+            else:
+                return ini
+    else:
+        if fim <meio:
+            return meio
+        else:
+            if fim< ini:
+                return fim
+            else:
+                return ini    
 
 
-def partition_lomulos(A,p,r):
+####  A = vetor de entrada
+####  p = indice menor elemento
+####  r = indice maior elemento
+def partition_lomuto(A,p,r):
     chave = A[p]
     storeindex= p+1
-    # for i in range(p+1,r+1):#### r +1 pq é nao inclusivo
     i=p+1
-    while(i<=r):
-        i+=1
-        if A[i]<=chave:
+    for i in range(p,r+1):
+        if A[i]<chave: 
+            i+=1
             swap(A[i],A[storeindex])
+            # swap(A[i],A[i+1])
             storeindex+=1
+        
     swap(A[p],A[storeindex-1])
-    return storeindex -1 
-
+    return (storeindex -1 )
 
 def partition_hoare(A,p,r):
-    chave=A[p]
-    while(p<r):
-        while(A[r] > chave and p < r):
-            r-=1
-            A[p] = A[r]
-        while(A[p] <= chave and p < r):
-            p+=1 
-            A[r] = A[p]
-    A[p]=chave
-    return p
+    chave =A[p]
+    i=p
+    j=r
+    while(i<j):
+        while(A[j] > chave and i<j):
+            j-=1
+            A[i]=A[j]
+        while(A[i] <= chave and i < j ):
+            i+=1
+            A[j]=A[i]
+    A[j]=chave
+    return i 
+
+
+
 
 
 
@@ -73,7 +100,7 @@ def partition(A,p,r):
     ############################# random 
 def random_quicksort(A,p,r):
     if r > p:
-        aleatorio = np.random ###checkar numpy
+        aleatorio = int(np.random.uniform(p,r)) ###checkar numpy
         temp=A[p]
         A[p]=A[aleatorio]
         A[aleatorio]=temp
@@ -90,23 +117,25 @@ def quicksort(A,p,r):
 #################### mediana
 
 
-def mediana_quicksort(A,p,r):
-    if p <r:
-        vec=[]
-        vec=[A[p],A[(len(A)-1)//2],A[r]]
-        mediana=np.median(vec) ## calculo alternativo
-        mediana=int(mediana)
-        # q=partition(A,p,mediana)
-        # q=partition_lomulos(A,p,mediana)
+def mediana_quicksort_hoare(A,p,r):
+    if p<r:
+        mediana=funcao_mediana(A[p],A[(len(A[1:])-1)//2],A[r])
         q=partition_hoare(A,p,mediana)
-
         quicksort(A,p,q-1)        
         quicksort(A,q+1,r)
-print(array[0])
-mediana_quicksort(array_novo[0],0,len(array_novo[0])-1)
+        
+st = time.time()
+def mediana_quicksort_lomuto(A,p,r):
+    if p<r:
+        mediana=funcao_mediana(A[p],A[(len(A[1:])-1)//2],A[r])
+        q=partition_lomuto(A,p,mediana)
+        quicksort(A,p,q-1)        
+        quicksort(A,q+1,r)
+    
+mediana_quicksort_lomuto(array_novo[4],1,len(array_novo[4])-1)
+et = time.time()
+#########################
+# random_quicksort(array_novo[0],0,len(array_novo[0])-1)
 
-######################### 
-
-
-
-print(array_novo[0])
+print(array_novo[0],"tempo=%f"%(et-st))
+# print(array_novo[2])
