@@ -15,10 +15,11 @@ def charAT(s,d):
 
 def sort1(A):
     n=len(A)
-    aux=[n]
+    aux=[]*n
     sort(A,0,n-1,aux)
 
 def sort(A,low,hi,d):
+    d=int(d)
     if(hi<=low+M):
         insertion_sort(A,low,hi,d)
     new=[R+2]
