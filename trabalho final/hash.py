@@ -5,6 +5,7 @@ class Nodo:
         self.id = id 
         self.num = 0
         self.next = None
+        self.nome=None
 
 
 class Hash_table:
@@ -16,7 +17,7 @@ class Hash_table:
     def fhash(self, idfifa):
         return int(idfifa) % self.M
     
-    def insercao(self,rating,idfifa,id):
+    def insersao(self,rating,idfifa,id,nome):
         indice= self.fhash(idfifa)
         if self.array[indice]==None:
             self.array[indice] = Nodo(rating,idfifa,id)
@@ -28,7 +29,7 @@ class Hash_table:
            self.array[indice]=novo_nodo
            self.contador+=1
     
-    def pesquisa(self,idfifa):
+    def preprocessamento(self,idfifa):
         indice= self.fhash(idfifa)
         # node = Nodo(self.array[indice].rating,self.array[indice].idfifa,self.array[indice].id)
         node=self.array[indice]

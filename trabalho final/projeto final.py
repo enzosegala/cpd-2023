@@ -23,37 +23,43 @@ def mean(a):
     for i in range(len(a)):
         z+=a[i]
     return float(z/len(a))
+
+
 if __name__ == "__main__":
     file_path = "rating.csv"
     # data_rating = csv_read(file_path)
     
         
-    # file_path2 = "players_21.csv"
+    file_path2 = "players.csv"
     # data_players= csv_read(file_path2)   
 
     # print(len(data_players))
     data_players_len=18.944
     start = time.time()
 
+
+
     tabela_hash = Hash_table(int(data_players_len*1.3))#vi que 'e um rule of dedao
+    trie_tree=trie()
+    tabela_hash_players=Hash_table(int(data_players_len*1.3))
+
     #for i in data_rating[1:]:
     matriz=[]
     for row in csv_read(file_path): 
-        # print(row)
-        tabela_hash.insercao(float(row[2]),int(row[1]),int(row[0]))
-    # a,b=tabela_hash.pesquisa(135507)
+        tabela_hash.insersao(float(row[2]),int(row[1]),int(row[0]),None)
+    for row in csv_read(file_path2):
+        trie_tree.insersao(row[1])
+        tabela_hash_players.insersao(float(row[2]),int(row[1]),int(row[0]),None)
+
     done = time.time()
-    elapsed = done - start
-    print(elapsed)
-    # print(mean(a))
-       
+    
     for i in tabela_hash:
         if i != 0:
-            a,b,c=tabela_hash.pesquisa(i.idfifa)
+            a,b=tabela_hash_players.pesquisa(i.idfifa)
             tamanho=len(a)
             a_media=mean(a)
-            trie.insercao(float)
-   
-              
 
-
+    a=(trie_tree.prefixo('Lion '))
+    print(a) 
+    elapsed = done - start
+    print(elapsed)
